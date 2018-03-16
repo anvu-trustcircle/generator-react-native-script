@@ -1,4 +1,0 @@
-target 'AppGenerate' do
-  pod 'Fabric'
-  pod 'Crashlytics'
-end

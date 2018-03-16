@@ -1,0 +1,5 @@
+{
+  "projects": {
+    "default": "[project id create in Firebase console on step 3]"
+  }
+}

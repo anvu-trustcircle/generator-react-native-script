@@ -1,0 +1,16 @@
+./resource/gradle.properties
+./resource/MainApplication.java
+./resource/strings.xml
+./resource/Info.plist
+./resource/app/build.gradle
+./resource/index.web.js
+./resource/package.json
+./resource/.firbaserc
+*.pyc
+./resource/ios/Podfile
+./resource/ios/fastlane/Appfile
+./resource/ios/AppDelegate.m
+./resource/ios/fastlane/Fastfile
+./resource/android/fastlane/Appfile
+./resource/android/AndroidManifest.xml
+./resource/android/fastlane/Fastfile

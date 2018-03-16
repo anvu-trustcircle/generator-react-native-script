@@ -8,9 +8,12 @@ def gen_main_application():
   
   for index in range(len(contents)):
     if 'new CodePush' in contents[index]:
-      contents[index] = '          new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),\n'
+      contents[index] = '          new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG)\n'
     if 'super.onCreate' in contents[index]:
-      contents.insert(index + 1, '      Fabric.with(this, new Crashlytics());\n')
+      contents.insert(index + 1, '    Fabric.with(this, new Crashlytics());\n')
+    if 'import android.app.Application;' in contents[index]:
+      contents.insert(index + 2, 'import com.crashlytics.android.Crashlytics;\n')
+      contents.insert(index + 3, 'import io.fabric.sdk.android.Fabric;\n')
   
   f = open('resource/MainApplication.java', 'w')
   contents = "".join(contents)
@@ -49,6 +52,19 @@ def gen_info_plist(ios_key):
   f.write(contents)
   f.close()
 
+def gen_index_js():
+  f = open('resource/index.js.base', 'r')
+  contents = f.readlines()
+  f.close()
+  
+  index = len(contents) - 1
+  contents[index] = 'AppRegistry.registerComponent(\'{0}\', () => MyApp)\n'.format(config.PROJECT_NAME)
+  
+  f = open('resource/index.js', 'w')
+  contents = "".join(contents)
+  f.write(contents)
+  f.close()
+
 def gen_gradle_properties(keystore, key):
   f = open('resource/gradle.properties.base', 'r')
   contents = f.readlines()
@@ -83,9 +99,9 @@ def gen_app_build_gradle():
       contents.insert(index + 22, '            signingConfig signingConfigs.release\n')
     
     if 'dependencies {' in contents[index]:
-      contents.insert(index + 1, '    compile(\'com.crashlytics.sdk.android:crashlytics:2.9.1@aar\') {\n')
-      contents.insert(index + 2, '        transitive = true;\n')
-      contents.insert(index + 3, '    }\n')
+      contents.insert(index + 5, '    compile(\'com.crashlytics.sdk.android:crashlytics:2.9.1@aar\') {\n')
+      contents.insert(index + 6, '        transitive = true;\n')
+      contents.insert(index + 7, '    }\n')
       contents.insert(index + 0, 'buildscript {\n')
       contents.insert(index + 1, '    repositories {\n')
       contents.insert(index + 2, '        maven { url \'https://maven.fabric.io/public\' }\n')
@@ -187,23 +203,23 @@ def gen_crashlytic_info_plist(api_token):
   contents = f.readlines()
   f.close()
   
-  index = len(contents) - 3
-  contents.insert(index + 0, '    <key>ITSAppUsesNoneExemptEncryption</key>\n')
-  contents.insert(index + 1, '    <false/>\n')
-  contents.insert(index + 2, '    <key>Fabric</key>\n')
+  index = len(contents) - 2
+  contents.insert(index + 0, '  <key>ITSAppUsesNoneExemptEncryption</key>\n')
+  contents.insert(index + 1, '  <false/>\n')
+  contents.insert(index + 2, '  <key>Fabric</key>\n')
   contents.insert(index + 3, '    <dict>\n')
-  contents.insert(index + 4, '      <key>APIKey</key>\n')
-  contents.insert(index + 5, '      <string>{0}</string>\n'.format(api_token))
-  contents.insert(index + 6, '      <key>Kits</key>\n')
-  contents.insert(index + 7, '      <array>\n')
-  contents.insert(index + 8, '        <dict>\n')
-  contents.insert(index + 9, '          <key>KitInfo</key>\n')
-  contents.insert(index + 10, '          <dict/>\n')
-  contents.insert(index + 11, '          <key>KitName</key>\n')
-  contents.insert(index + 12, '          <string>Crashlytics</string>\n')
-  contents.insert(index + 13, '        </dict>\n')
-  contents.insert(index + 14, '      </array>\n')
-  contents.insert(index + 15, '    </dict>\n')
+  contents.insert(index + 4, '    <key>APIKey</key>\n')
+  contents.insert(index + 5, '    <string>{0}</string>\n'.format(api_token))
+  contents.insert(index + 6, '    <key>Kits</key>\n')
+  contents.insert(index + 7, '    <array>\n')
+  contents.insert(index + 8, '      <dict>\n')
+  contents.insert(index + 9, '        <key>KitInfo</key>\n')
+  contents.insert(index + 10, '       <dict/>\n')
+  contents.insert(index + 11, '       <key>KitName</key>\n')
+  contents.insert(index + 12, '       <string>Crashlytics</string>\n')
+  contents.insert(index + 13, '     </dict>\n')
+  contents.insert(index + 14, '   </array>\n')
+  contents.insert(index + 15, ' </dict>\n')
   
   f = open('resource/Info.plist', 'w')
   contents = "".join(contents)
@@ -218,6 +234,9 @@ def gen_app_delegate():
   for index in range(len(contents)):
     if 'didFinishLaunchingWithOptions' in contents[index]:
       contents.insert(index + 2, '  [Fabric with:@[Crashlytics.self]];\n')
+    if '#import "AppDelegate.h"' in contents[index]:
+      contents.insert(index + 1, '#import <Fabric/Fabric.h>\n')
+      contents.insert(index + 2, '#import <Crashlytics/Crashlytics.h>\n')
   
   f = open('resource/ios/AppDelegate.m', 'w')
   contents = "".join(contents)

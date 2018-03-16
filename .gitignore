@@ -2,6 +2,7 @@ resource/gradle.properties
 resource/MainApplication.java
 resource/strings.xml
 resource/Info.plist
+resource/index.js
 resource/app/build.gradle
 resource/index.web.js
 resource/package.json

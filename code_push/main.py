@@ -1,7 +1,7 @@
 from library.call import call, call_cd
 from library.question import yes_question
 from config import config
-from resource.gen_file import gen_main_application, gen_strings_xml, gen_info_plist, gen_gradle_properties, gen_app_build_gradle
+from resource.gen_file import gen_main_application, gen_strings_xml, gen_info_plist, gen_index_js, gen_gradle_properties, gen_app_build_gradle
 
 def integrate_code_push():
   install_cli()
@@ -34,6 +34,8 @@ def signed_android_apk():
   
   print '\n\n'
   print '*note: if you want to test code push, please config your app to build release, or you can find it by this link: https://github.com/trustcircleglobal/documents/tree/master/technical/client/code-push#build-your-release-app*'
+  print 'press enter to continue...'
+  raw_input()
 
 def install_cli_package():
   print '\n\n\n'
@@ -101,4 +103,5 @@ def fix_code_push_issue():
   gen_info_plist(CODE_PUSH_IOS_STAGING)
   call(['cp', 'resource/Info.plist', '{0}/ios/{1}/Info.plist'.format(config.PROJECT_NAME, config.PROJECT_NAME)])
   
+  gen_index_js()
   call(['cp', 'resource/index.js', config.PROJECT_NAME])

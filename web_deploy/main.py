@@ -12,13 +12,13 @@ def install_package():
   call_cd(config.PROJECT_NAME)
   call(['yarn', 'add', 'react-dom', 'react-native-web'])
   call(['yarn', 'add', '--dev', 'babel-plugin-react-native-web'])
-  call(['yarn', 'add', '--dev', 'babel-loader', 'url-loader', 'webpack', 'webpack-dev-server'])
+  call(['yarn', 'add', '--dev', 'babel-loader', 'url-loader', 'webpack', 'webpack-dev-server', 'webpack-cli'])
   
-  print '\n\n\n'
-  enable_install_webpack_cli = yes_question('do you want to install webpack-cli? enter to skip if you have installed it.')
-  if enable_install_webpack_cli:
-    call(['npm', 'install', '-g', 'webpack-cli'])
-  call_cd('..')
+  # print '\n\n\n'
+  #   enable_install_webpack_cli = yes_question('do you want to install webpack-cli? enter to skip if you have installed it.')
+  #   if enable_install_webpack_cli:
+  #     call(['npm', 'install', '-g', 'webpack-cli'])
+  #   call_cd('..')
 
 def import_new_file():
   call(['mkdir', '-p', '{0}/src'.format(config.PROJECT_NAME)])
@@ -29,8 +29,8 @@ def import_new_file():
   call(['mkdir', '-p', '{0}/web'.format(config.PROJECT_NAME)])
   call(['mkdir', '-p', '{0}/web/dist'.format(config.PROJECT_NAME)])
   call(['cp', 'resource/web/dist/index.html', '{0}/web/dist/index.html'.format(config.PROJECT_NAME)])
-  call(['cp', 'resource/webpack.config.js', '{0}/webpack.config.js'.format(config.PROJECT_NAME)])
-  call(['cp', 'resource/webpack.config.js', '{0}/webpack.prod.config.js'.format(config.PROJECT_NAME)])
+  call(['cp', 'resource/webpack.config.js', '{0}/web/webpack.config.js'.format(config.PROJECT_NAME)])
+  call(['cp', 'resource/webpack.config.js', '{0}/web/webpack.prod.config.js'.format(config.PROJECT_NAME)])
   
   gen_package_json()
   call(['cp', 'resource/package.json', '{0}/package.json'.format(config.PROJECT_NAME)])

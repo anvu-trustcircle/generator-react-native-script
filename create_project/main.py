@@ -21,11 +21,18 @@ def init_project():
     version = '--version={0}'.format(REACT_NATIVE_VERSION)
   
   call(['react-native', 'init', name, version])
+  call(['cp', 'resource/.gitignore', config.PROJECT_NAME])
+  
+  print '\n\n\n'
+  print 'now, open your project and replace all com.{0} by your android package-name'.format(config.PROJECT_NAME.lower())
+  print 'open your xcode project and replace your bundle id'
+  print 'enter to continue...'
+  raw_input()
 
 def config_sdk_android():
   local_file = '{0}/android/local.properties'.format(config.PROJECT_NAME)
   user = getpass.getuser()
-  sdk_dir = '/User/{0}/Library/Android/sdk'.format(user)
+  sdk_dir = '/Users/{0}/Library/Android/sdk'.format(user)
   
   print '\n\n\n'
   print 'enter your android sdk location or press enter for default: {0}\n'.format(sdk_dir)

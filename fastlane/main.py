@@ -10,8 +10,8 @@ def integrate_fastlane():
 
 def install_fastlane():
   print '\n\n\n'
-  enable_install_firebase = yes_question('do you want to install firebase? enter to skip if you have installed it.')
-  if enable_install_firebase:
+  enable_install_fastlane = yes_question('do you want to install fastlane? enter to skip if you have installed it.')
+  if enable_install_fastlane:
     call(['gem', 'install', 'fastlane', '-NV'])
 
 def integrate_ios():
@@ -72,14 +72,13 @@ def integrate_code_signing():
   call_cd('../../..')
   
   print '\n\n\n'
-  print 'go to xcode and setup Provisioning Profile in both Signing (Debug) and Signing (Release) corresponds the Provision you just create or load from fastlane match'
+  print 'go to xcode and setup bundle id, Provisioning Profile in both Signing (Debug) and Signing (Release) corresponds the Provision you just create or load from fastlane match'
   print 'note: if you can find the provision in XCode, there are some failure with code signing, please visit this docs to check https://github.com/trustcircleglobal/documents/tree/master/technical/client/fastlane#code-signing'
   print 'enter to continue...'
   raw_input()
 
 def integrate_ios_beta_crashlytic():
   print 'goto Beta Crashlytics Console https://fabric.io/home and get your organization api token and build secrect'
-  print 'now, see the left menu > select Manage Group (hidden until select Beta tab) > select New Group and create a group with some tester > done!'
   
   if config.CRASHLYTIC_ORGANIZATION_API_TOKEN == '':
     api_token = raw_input('enter your CRASHLYTIC_ORGANIZATION_API_TOKEN: ')
@@ -93,6 +92,7 @@ def integrate_ios_beta_crashlytic():
   else:
     build_secrect = config.CRASHLYTIC_ORGANIZATION_BUILD_SECRECT
   
+  print 'go to Beta Crashlytics Console > see the left menu > select Manage Group (hidden until select Beta tab) > select New Group and create a group with some tester'
   if config.CRASHLYTIC_TESTER_GROUP == '':
     tester_group = raw_input('enter your CRASHLYTIC_TESTER_GROUP: ')
     config.set_crashlytic_tester_group(tester_group)
@@ -113,6 +113,7 @@ def integrate_ios_beta_crashlytic():
   gen_crashlytic_info_plist(api_token)
   call(['cp', 'resource/Info.plist', '{0}/ios/{1}/Info.plist'.format(config.PROJECT_NAME, config.PROJECT_NAME)])
   
+  print '\n\n\n'
   print 'open your xcode target, navigate to build phases and add a new run script'
   print '"${PODS_ROOT}' + '/Fabric/run" {0} {1}'.format(api_token, build_secrect)
   print 'press enter to continue..'
@@ -142,7 +143,7 @@ def init_fastlane_android():
   else:
     json_path = config.ANDROID_JSON_PATH
   
-  gen_android_appfile(package_name, json_path)
+  gen_android_appfile(json_path, package_name)
   call(['cp', 'resource/android/fastlane/Appfile', '{0}/android/fastlane/Appfile'.format(config.PROJECT_NAME)])
 
 def integrate_android_beta_crashlytic():

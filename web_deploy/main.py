@@ -18,7 +18,7 @@ def install_package():
   #   enable_install_webpack_cli = yes_question('do you want to install webpack-cli? enter to skip if you have installed it.')
   #   if enable_install_webpack_cli:
   #     call(['npm', 'install', '-g', 'webpack-cli'])
-  #   call_cd('..')
+  call_cd('..')
 
 def import_new_file():
   call(['mkdir', '-p', '{0}/src'.format(config.PROJECT_NAME)])

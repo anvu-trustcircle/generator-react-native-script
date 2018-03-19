@@ -10,7 +10,7 @@ def integrate_fastlane():
 
 def install_fastlane():
   print '\n\n\n'
-  enable_install_fastlane = yes_question('do you want to install fastlane? enter to skip if you have installed it.')
+  enable_install_fastlane = yes_question('do you want to install fastlane-tools from gem? enter to skip if you have installed it.')
   if enable_install_fastlane:
     call(['gem', 'install', 'fastlane', '-NV'])
 
@@ -28,6 +28,7 @@ def integrate_android():
 def init_fastlane_ios():
   call_cd('{0}/ios'.format(config.PROJECT_NAME))
   call(['fastlane', 'init'])
+  call(['touch', 'Gemfile.lock'])
   call_cd('../..')
   
   if config.IOS_BUNDLE_ID == '':
@@ -129,6 +130,7 @@ def config_ios_fastfile():
 def init_fastlane_android():
   call_cd('{0}/android/'.format(config.PROJECT_NAME))
   call(['fastlane', 'init'])
+  call(['touch', 'Gemfile.lock'])
   call_cd('../..')
   
   if config.ANDROID_PACKAGE_NAME == '':

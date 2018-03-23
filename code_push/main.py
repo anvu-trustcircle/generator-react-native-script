@@ -30,7 +30,7 @@ def signed_android_apk():
   call(['cp', 'resource/gradle.properties', '{0}/android/gradle.properties'.format(config.PROJECT_NAME)])
   
   gen_app_build_gradle()
-  call(['cp', 'resource/app/build.gradle', '{0}/android/app/build.gradle'.format(config.PROJECT_NAME)])
+  call(['cp', 'resource/android/build.gradle', '{0}/android/app/build.gradle'.format(config.PROJECT_NAME)])
   
   print '\n\n'
   print '*note: if you want to test code push, please config your app to build release, or you can find it by this link: https://github.com/trustcircleglobal/documents/tree/master/technical/client/code-push#build-your-release-app*'

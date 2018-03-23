@@ -128,7 +128,7 @@ def config_ios_fastfile():
   call(['cp', 'resource/ios/fastlane/Fastfile', '{0}/ios/fastlane/Fastfile'.format(config.PROJECT_NAME)])
 
 def init_fastlane_android():
-  call_cd('{0}/android/'.format(config.PROJECT_NAME))
+  call_cd('{0}/android'.format(config.PROJECT_NAME))
   call(['fastlane', 'init'])
   call(['touch', 'Gemfile.lock'])
   call_cd('../..')

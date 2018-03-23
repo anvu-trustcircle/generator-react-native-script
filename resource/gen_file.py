@@ -119,7 +119,7 @@ def gen_app_build_gradle():
       contents.insert(index + 14, '\n')
       break
   
-  f = open('resource/app/build.gradle', 'w')
+  f = open('resource/android/build.gradle', 'w')
   contents = "".join(contents)
   f.write(contents)
   f.close()

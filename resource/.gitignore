@@ -22,6 +22,9 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+ios/Pods/
+*.zip
+
 # Android/IntelliJ
 #
 build/
@@ -29,6 +32,8 @@ build/
 .gradle
 local.properties
 *.iml
+android/app/src/main/assets/index.android.bundle
+android/app/src/main/assets/index.android.bundle.meta
 
 # node.js
 #
@@ -50,3 +55,7 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+
+# bundle
+#
+web/dist/bundle.js

@@ -44,7 +44,7 @@ def install_cli_package():
     call(['yarn', 'global', 'add', 'code-push-cli'])
 
 def register_cli_acount():
-  call(['code-push', 'log-out'])
+  call(['code-push', 'logout'])
   call(['code-push', 'register'])
 
 def register_cli_app():

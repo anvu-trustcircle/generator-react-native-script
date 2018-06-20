@@ -15,7 +15,7 @@ def gen_main_application():
       contents.insert(index + 2, 'import com.crashlytics.android.Crashlytics;\n')
       contents.insert(index + 3, 'import io.fabric.sdk.android.Fabric;\n')
   
-  f = open('resource/MainApplication.java', 'w')
+  f = open('resource/android/MainApplication.java', 'w')
   contents = "".join(contents)
   f.write(contents)
   f.close()
@@ -119,7 +119,7 @@ def gen_app_build_gradle():
       contents.insert(index + 14, '\n')
       break
   
-  f = open('resource/android/build.gradle', 'w')
+  f = open('resource/android/app/build.gradle', 'w')
   contents = "".join(contents)
   f.write(contents)
   f.close()
